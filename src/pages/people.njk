@@ -1,0 +1,26 @@
+---
+layout: layouts/base.njk
+title: People
+permalink: /people/
+description: Researchers, students and staff in the EyeTRU research group.
+---
+<header class="page-head">
+  <div class="container">
+    <span class="eyebrow">Our team</span>
+    <h1>People</h1>
+    <p class="lead">Clinicians, pharmacologists, epidemiologists, data scientists and students working together on eye disease.</p>
+  </div>
+</header>
+<div class="container section">
+  {% for cat, catLabel in labels.people_category %}
+  {% set members = collections.people | where("category", cat) %}
+  {% if members.length %}
+  <section class="people-group" id="{{ cat }}">
+    {% if cat != "lead" %}<h2>{{ catLabel }}</h2>{% endif %}
+    <div class="people-grid">
+      {% for person in members %}{% set lead = (cat == "lead") %}{% include "partials/person-card.njk" %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+  {% endfor %}
+</div>

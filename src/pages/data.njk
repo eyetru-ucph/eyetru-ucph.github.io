@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+title: Data
+permalink: /data/
+description: Research datasets from EyeTRU and how to apply for access.
+---
+<header class="page-head">
+  <div class="container">
+    <span class="eyebrow">Open science</span>
+    <h1>Data & resources</h1>
+    <p class="lead">Our datasets are described openly so other researchers can find and reuse them. Participant-level data are held in a secure environment and shared on application.</p>
+  </div>
+</header>
+<div class="container section">
+  {% for ds in collections.datasets %}
+  <div class="layout-aside" style="margin-bottom:3rem">
+    {% include "partials/dataset-card.njk" %}
+    <div class="aside-box"><h2>How access works</h2><div class="small">{{ ds.content | safe }}</div></div>
+  </div>
+  {% endfor %}
+</div>

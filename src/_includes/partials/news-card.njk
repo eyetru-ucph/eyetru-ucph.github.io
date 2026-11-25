@@ -1,0 +1,7 @@
+{# One news item card. Expects `post`. #}
+<article class="card card-link news-card">
+  {% if post.data.image %}<img src="{{ post.data.image }}" alt="" loading="lazy">{% endif %}
+  <time datetime="{{ post.date | isoDate }}">{{ post.date | date }}</time>
+  <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+  {% if post.data.summary %}<p>{{ post.data.summary }}</p>{% endif %}
+</article>

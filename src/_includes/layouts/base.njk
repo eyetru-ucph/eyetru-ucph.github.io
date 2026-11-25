@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="{{ site.language or 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% set pageTitle = (title + " · " + site.name) if title and page.url != "/" else (site.name + " · " + site.full_name) %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ description or summary or site.description | striptags | trim }}">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ description or summary or site.description | striptags | trim }}">
+  <meta property="og:type" content="website">
+  {% if image %}<meta property="og:image" content="{{ image }}">{% endif %}
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.name }} news" href="/news/feed.xml">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body class="{{ bodyClass }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="{{ site.name }} home">
+        {% include "partials/logo.njk" %}
+        <span class="brand-text"><span class="brand-name">{{ site.name }}</span><span class="brand-sub">{{ site.full_name }}</span></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="bars"></span></button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          {% for item in navigation.main %}
+          {% set active = page.url == item.url or (item.url != "/" and page.url.startsWith(item.url)) %}
+          <li><a href="{{ item.url }}"{% if active %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+          {% endfor %}
+        </ul>
+        <button class="theme-toggle" type="button" aria-label="Switch light or dark mode" title="Light / dark">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8A9.1 9.1 0 0 0 12 3z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand-footer" href="/">{% include "partials/logo.njk" %}<span class="brand-text"><span class="brand-name">{{ site.name }}</span><span class="brand-sub">{{ site.full_name }}</span></span></a>
+        <p class="muted small">{{ site.footer_note }}</p>
+      </div>
+      <div>
+        <h2 class="footer-h">Visit</h2>
+        <address class="small">{% for line in site.contact.address %}{{ line }}<br>{% endfor %}</address>
+      </div>
+      <div>
+        <h2 class="footer-h">Contact</h2>
+        <p class="small">
+          {% if site.contact.email %}<a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a><br>{% endif %}
+          {% if site.contact.phone %}<a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% endif %}
+        </p>
+      </div>
+      <div>
+        <h2 class="footer-h">Follow</h2>
+        <ul class="plain small">
+          {% for l in site.links %}<li><a href="{{ l.url }}" rel="noopener">{{ l.label }}</a></li>{% endfor %}
+          <li><a href="/news/feed.xml">News feed (RSS)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom small muted">
+      <span>© {{ "" | currentYear }} {{ site.name }}, University of Copenhagen</span>
+      <a href="https://app.pagescms.org" rel="nofollow noopener">Editor login</a>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+title: Publications
+permalink: /publications/
+description: Peer-reviewed papers, submitted manuscripts, conference contributions and talks from EyeTRU.
+---
+{% set all = collections.publications %}
+<header class="page-head">
+  <div class="container">
+    <span class="eyebrow">Output</span>
+    <h1>Publications & presentations</h1>
+    <p class="lead">{{ all | isPeerReviewed | length }} peer-reviewed papers and {{ all.length - (all | isPeerReviewed | length) }} other outputs, including manuscripts under review, conference posters and talks.</p>
+  </div>
+</header>
+<div class="container section" style="padding-top:2rem">
+  <form class="filters" data-pub-filters role="search">
+    <label class="sr-only" for="q">Search</label>
+    <input id="q" name="q" type="search" placeholder="Search title, author, journal…">
+    <label class="sr-only" for="type">Type</label>
+    <select id="type" name="type">
+      <option value="">All types</option>
+      <option value="papers">Papers</option>
+      <option value="talks">Talks, posters & abstracts</option>
+      <option value="other">Other</option>
+    </select>
+    <label class="sr-only" for="status">Status</label>
+    <select id="status" name="status">
+      <option value="">Any status</option>
+      {% for k, v in labels.publication_status %}<option value="{{ k }}">{{ v }}</option>{% endfor %}
+    </select>
+    <label class="sr-only" for="project">Project</label>
+    <select id="project" name="project">
+      <option value="">All projects</option>
+      {% for p in collections.projects %}<option value="{{ p.fileSlug }}">{{ p.data.short_name or p.data.title }}</option>{% endfor %}
+    </select>
+    <span class="count" data-count aria-live="polite"></span>
+  </form>
+  {% set pubs = all %}
+  {% include "partials/pub-list.njk" %}
+  <p class="empty-state" data-empty hidden>No publications match your search.</p>
+</div>

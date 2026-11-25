@@ -1,0 +1,45 @@
+---
+layout: layouts/base.njk
+title: Partners & funding
+permalink: /partners/
+description: EyeTRU collaborators, partner organisations and funders.
+---
+<header class="page-head">
+  <div class="container">
+    <span class="eyebrow">Network</span>
+    <h1>Partners & funding</h1>
+    <p class="lead">Our research depends on a strong network of clinical, academic, patient and industry partners, and on the foundations that fund our work.</p>
+  </div>
+</header>
+<div class="container section">
+  {% for type, typeLabel in labels.partner_type %}
+  {% set ps = collections.partners | where("type", type) %}
+  {% if ps.length %}
+  <section class="people-group">
+    <h2>{{ typeLabel }}</h2>
+    <div class="logo-wall">{% for p in ps %}{% include "partials/partner-tile.njk" %}{% endfor %}</div>
+  </section>
+  {% endif %}
+  {% endfor %}
+
+  <section class="people-group" id="funding">
+    <h2>Funding</h2>
+    <p class="muted">We gratefully acknowledge the support of the following funders.</p>
+    {% set current = collections.grants | where("current", true) %}
+    {% set previous = collections.grants | whereNot("current", true) %}
+    {% for g in current %}
+    <div class="grant">
+      <div class="years">{% if g.data.start_year %}{{ g.data.start_year }}–{{ g.data.end_year or "" }}{% else %}Current{% endif %}</div>
+      <div>
+        <h3>{% if g.data.url %}<a href="{{ g.data.url }}" rel="noopener">{{ g.data.funder }}</a>{% else %}{{ g.data.funder }}{% endif %}</h3>
+        <div class="muted small">{{ g.data.title }}{% if g.data.amount %} · {{ g.data.amount }}{% endif %}</div>
+        {% if g.data.projects %}<div class="pub-tags">{% for p in g.data.projects %}{% set proj = collections.projects | findBySlug(p) %}{% if proj %}<a class="tag tag-accent" href="{{ proj.url }}">{{ proj.data.short_name or proj.data.title }}</a>{% endif %}{% endfor %}</div>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {% if previous.length %}
+    <h3 style="margin-top:2rem">Previous funding</h3>
+    <p class="small muted">{% for g in previous %}{{ g.data.funder }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    {% endif %}
+  </section>
+</div>

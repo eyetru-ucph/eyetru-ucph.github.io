@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+---
+<header class="page-head">
+  <div class="container">
+    {% if eyebrow %}<span class="eyebrow">{{ eyebrow }}</span>{% endif %}
+    <h1>{{ title }}</h1>
+    {% if intro %}<p class="lead">{{ intro }}</p>{% endif %}
+  </div>
+</header>
+<section class="section">
+  <div class="container">
+    <h2 class="sr-only">Research themes</h2>
+    <div class="grid grid-3">
+      {% for t in themes %}
+      <article class="card theme-card">
+        <div class="card-icon">{% include "partials/icon.njk" %}</div>
+        <h3>{{ t.title }}</h3>
+        <p>{{ t.text }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container"><div class="prose">{{ content | safe }}</div></div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head"><h2>Projects</h2></div>
+    <div class="grid grid-2">
+      {% for proj in collections.projects %}
+      <article class="card card-link">
+        <span class="tag tag-accent" style="align-self:flex-start">{{ proj.data.status or "Project" }}</span>
+        <h3><a href="{{ proj.url }}">{{ proj.data.title }}</a></h3>
+        <p>{{ proj.data.summary }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

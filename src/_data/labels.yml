@@ -1,0 +1,32 @@
+# Display names for the codes used in content files. The data manager can add new codes here.
+publication_type:
+  article: Journal article
+  review: Review
+  book-chapter: Book chapter
+  proceedings: Conference paper
+  abstract: Conference abstract
+  presentation: Talk
+  poster: Poster
+  seminar: Seminar talk
+  popular: Popular science
+  other: Other
+publication_status:
+  published: Published
+  accepted: Accepted
+  in-review: Under review
+  submitted: Submitted
+  ready: Ready for submission
+  in-preparation: In preparation
+people_category:
+  lead: Group leader
+  senior: Senior researchers
+  phd: PhD fellows
+  staff: Data, administration & study staff
+  student: Students
+  guest: Guest and affiliated researchers
+  alumni: Alumni
+partner_type:
+  academic: Academic partners
+  clinical: Clinical partners
+  industry: Industry & public-private partners
+  patient: Patient & professional organisations

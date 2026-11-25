@@ -1,0 +1,17 @@
+{# One publication or presentation. Expects `pub` (a collection item). #}
+{% set d = pub.data %}
+{% set group = "papers" if d.type in ["article", "review", "book-chapter", "proceedings"] else ("talks" if d.type in ["presentation", "poster", "seminar", "abstract"] else "other") %}
+{% set link = (d.doi | doiUrl) or d.url %}
+<li class="pub" data-pub data-group="{{ group }}" data-status="{{ d.status or 'published' }}" data-projects="{{ (d.projects or []) | join(' ') }}" data-search="{{ d | searchText }}">
+  <p class="pub-title">{% if link %}<a href="{{ link }}" rel="noopener">{{ d.title }}</a>{% else %}{{ d.title }}{% endif %}</p>
+  <p class="pub-authors">{{ d.authors | highlightAuthors(site.highlight_authors) | safe }}</p>
+  {% if d.venue %}<p class="pub-venue"><em>{{ d.venue }}</em>{% if d.details %}, {{ d.details }}{% endif %} ({{ d.year }})</p>{% endif %}
+  <div class="pub-tags">
+    <span class="tag">{{ d.type | label(labels.publication_type) }}</span>
+    {% if d.status and d.status != "published" %}<span class="tag tag-accent">{{ d.status | label(labels.publication_status) }}</span>{% endif %}
+    {% if d.award %}<span class="tag tag-award">🏆 {{ d.award }}</span>{% endif %}
+    {% for p in d.projects or [] %}{% set proj = collections.projects | findBySlug(p) %}{% if proj %}<a class="tag tag-accent" href="{{ proj.url }}">{{ proj.data.short_name or proj.data.title }}</a>{% endif %}{% endfor %}
+    {% if d.doi %}<a href="{{ d.doi | doiUrl }}" rel="noopener">DOI</a>{% endif %}
+    {% if d.pdf %}<a href="{{ d.pdf }}">PDF</a>{% endif %}
+  </div>
+</li>

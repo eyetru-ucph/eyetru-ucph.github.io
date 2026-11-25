@@ -1,0 +1,133 @@
+---
+layout: layouts/base.njk
+---
+{# Template for every subproject (FOREVER and future ones). Everything below is pulled
+   automatically from items tagged with this project's file name in their "projects" field. #}
+{% set slug = page.fileSlug %}
+{% set team = collections.people | forProject(slug) | whereNot("category", "alumni") %}
+{% set pubs = collections.publications | forProject(slug) %}
+{% set papers = pubs | isPeerReviewed %}
+{% set data = collections.datasets | forProject(slug) %}
+{% set partnersP = collections.partners | forProject(slug) %}
+{% set grantsP = collections.grants | forProject(slug) %}
+{% set newsP = collections.news | forProject(slug) %}
+
+<section class="project-hero">
+  {% include "partials/retina.njk" %}
+  <div class="container">
+    <span class="eyebrow">An {{ site.name }} project{% if status %} · {{ status }}{% endif %}</span>
+    <h1>{{ title }}</h1>
+    {% if full_name %}<p class="lead" style="font-family:var(--font-serif);font-style:italic">{{ full_name }}</p>{% endif %}
+    {% if summary %}<p class="lead">{{ summary }}</p>{% endif %}
+    {% if buttons %}<div class="btn-row" style="margin-top:1.5rem">
+      {% for b in buttons %}<a class="btn {{ 'btn-primary' if loop.first else 'btn-ghost' }}" href="{{ b.link }}">{{ b.label }}</a>{% endfor %}
+    </div>{% endif %}
+    {% if facts %}<div class="key-facts">
+      {% for f in facts %}<div class="key-fact"><div class="v">{{ f.value }}</div><div class="l">{{ f.label }}</div></div>{% endfor %}
+    </div>{% endif %}
+  </div>
+</section>
+
+<nav class="subnav" aria-label="{{ title }} sections">
+  <div class="container"><ul>
+    <li><a href="#about">About</a></li>
+    {% if team.length %}<li><a href="#team">Team</a></li>{% endif %}
+    {% if pubs.length %}<li><a href="#publications">Publications</a></li>{% endif %}
+    {% if data.length %}<li><a href="#data">Data access</a></li>{% endif %}
+    {% if partnersP.length or grantsP.length %}<li><a href="#partners">Partners & funding</a></li>{% endif %}
+    {% if newsP.length %}<li><a href="#news">News</a></li>{% endif %}
+    <li><a href="#contact">Contact</a></li>
+  </ul></div>
+</nav>
+
+<section class="section" id="about">
+  <div class="container layout-aside">
+    <div class="prose">{{ content | safe }}</div>
+    <aside class="aside-box">
+      <h2>At a glance</h2>
+      <dl>
+        {% for f in at_a_glance or [] %}<div><dt>{{ f.label }}</dt><dd>{{ f.value | safe }}</dd></div>{% endfor %}
+        <div><dt>Peer-reviewed papers</dt><dd>{{ papers.length }}</dd></div>
+      </dl>
+      {% if links %}<h3 style="margin-top:1.25rem">Links</h3>
+      <ul class="plain small">{% for l in links %}<li><a href="{{ l.url }}" rel="noopener">{{ l.label }}</a></li>{% endfor %}</ul>{% endif %}
+    </aside>
+  </div>
+</section>
+
+{% if team.length %}
+<section class="section section-alt" id="team">
+  <div class="container">
+    <div class="section-head"><h2>Team</h2><a class="arrow-link" href="/people/">Everyone in {{ site.name }}</a></div>
+    <div class="people-grid">
+      {% for person in team %}{% set lead = false %}{% include "partials/person-card.njk" %}{% endfor %}
+    </div>
+    {% if steering_group %}
+    <h3 style="margin-top:2.5rem">Steering group</h3>
+    <ul class="grid grid-3 plain">
+      {% for s in steering_group %}<li class="card"><strong>{{ s.name }}</strong><span class="muted small">{{ s.role }}</span></li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% if pubs.length %}
+<section class="section" id="publications">
+  <div class="container">
+    <div class="section-head"><h2>Publications</h2><a class="arrow-link" href="/publications/?project={{ slug }}">Search and filter all {{ pubs.length }}</a></div>
+    {% set pubs = papers | limit(8) %}
+    {% include "partials/pub-list.njk" %}
+  </div>
+</section>
+{% endif %}
+
+{% if data.length %}
+<section class="section section-alt" id="data">
+  <div class="container">
+    <div class="section-head"><h2>Data access</h2><a class="arrow-link" href="/data/">All datasets</a></div>
+    <div class="grid grid-2">
+      {% for ds in data %}{% include "partials/dataset-card.njk" %}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if partnersP.length or grantsP.length %}
+<section class="section" id="partners">
+  <div class="container">
+    <div class="section-head"><h2>Partners & funding</h2><a class="arrow-link" href="/partners/">All partners and funders</a></div>
+    {% if partnersP.length %}<div class="logo-wall">
+      {% for p in partnersP %}{% include "partials/partner-tile.njk" %}{% endfor %}
+    </div>{% endif %}
+    {% if grantsP.length %}<h3 style="margin-top:2.5rem">Funded by</h3>
+    <div class="logo-wall">
+      {% for g in grantsP %}<a class="logo-tile" href="{{ g.data.url or '/partners/#funding' }}" rel="noopener"><span class="n">{{ g.data.funder }}</span><span class="d">{{ g.data.title }}</span></a>{% endfor %}
+    </div>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% if newsP.length %}
+<section class="section section-alt" id="news">
+  <div class="container">
+    <div class="section-head"><h2>News</h2><a class="arrow-link" href="/news/">All news</a></div>
+    <div class="grid grid-3">{% for post in newsP | limit(3) %}{% include "partials/news-card.njk" %}{% endfor %}</div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="callout">
+      <div>
+        <h2>Contact {{ title }}</h2>
+        <p>{{ contact_text or "Questions about the project, collaboration or data access? Get in touch." }}</p>
+      </div>
+      <div class="btn-row">
+        {% if contact_email %}<a class="btn btn-primary" href="mailto:{{ contact_email }}">{{ contact_email }}</a>{% endif %}
+        {% if contact_phone %}<a class="btn btn-ghost" href="tel:{{ contact_phone | replace(' ', '') }}">{{ contact_phone }}</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,96 @@
+---
+layout: layouts/base.njk
+permalink: /
+---
+{% set forever = collections.projects | findBySlug("forever") %}
+<section class="hero">
+  {% include "partials/retina.njk" %}
+  <div class="container">
+    <span class="eyebrow">{{ site.hero.eyebrow }}</span>
+    <h1>{{ site.hero.title }}</h1>
+    <p>{{ site.hero.text }}</p>
+    <div class="btn-row" style="margin-top:2rem">
+      <a class="btn btn-primary" href="{{ site.hero.primary_button.link }}">{{ site.hero.primary_button.label }}</a>
+      <a class="btn btn-ghost" href="{{ site.hero.secondary_button.link }}">{{ site.hero.secondary_button.label }}</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats">
+    {% for s in site.stats %}<div class="stat"><div class="stat-value">{{ s.value }}</div><div class="stat-label">{{ s.label }}</div></div>{% endfor %}
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">Research</span><h2>From cells to cohorts</h2></div>
+      <a class="arrow-link" href="/research/">All research themes</a>
+    </div>
+    {% set researchPage = collections.all | findBySlug("research") %}
+    <div class="grid grid-3">
+      {% for t in researchPage.data.themes | limit(6) %}
+      <article class="card theme-card">
+        <div class="card-icon">{% include "partials/icon.njk" %}</div>
+        <h3>{{ t.title }}</h3>
+        <p>{{ t.text }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if forever %}
+<section class="section section-alt">
+  <div class="container">
+    <div class="project-feature">
+      <div class="pf-body">
+        <span class="eyebrow">Flagship project</span>
+        <h2>{{ forever.data.title }}</h2>
+        <p class="muted" style="font-family:var(--font-serif);font-style:italic">{{ forever.data.full_name }}</p>
+        <p>{{ forever.data.summary }}</p>
+        <div class="btn-row"><a class="btn btn-primary" href="{{ forever.url }}">Visit the FOREVER site</a><a class="btn btn-ghost" href="/data/">Data access</a></div>
+      </div>
+      <div class="pf-art">
+        {% include "partials/retina.njk" %}
+        {% for f in forever.data.facts | limit(2) %}<div style="position:relative;margin-top:1rem"><div class="big">{{ f.value }}</div><div style="color:#b8cfd8">{{ f.label }}</div></div>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">Latest</span><h2>News</h2></div>
+      <a class="arrow-link" href="/news/">All news</a>
+    </div>
+    <div class="grid grid-3">{% for post in collections.news | limit(3) %}{% include "partials/news-card.njk" %}{% endfor %}</div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">Recent work</span><h2>Selected publications</h2></div>
+      <a class="arrow-link" href="/publications/">All publications</a>
+    </div>
+    <ul class="pub-list">
+      {% for pub in collections.publications | isPeerReviewed | limit(5) %}{% include "partials/pub-item.njk" %}{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="callout">
+      <div>
+        <h2>Work with us</h2>
+        <p>We welcome collaborators, funders and students who share our goal of preventing vision loss. FOREVER data are available to researchers on application.</p>
+      </div>
+      <div class="btn-row"><a class="btn btn-primary" href="/contact/">Get in touch</a><a class="btn btn-ghost" href="/partners/">Our partners</a></div>
+    </div>
+  </div>
+</section>

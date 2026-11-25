@@ -1,0 +1,10 @@
+# Main menu. Editable in Pages CMS under "Menu".
+main:
+  - { label: Research, url: /research/ }
+  - { label: FOREVER, url: /forever/ }
+  - { label: People, url: /people/ }
+  - { label: Publications, url: /publications/ }
+  - { label: Data, url: /data/ }
+  - { label: Partners & funding, url: /partners/ }
+  - { label: News, url: /news/ }
+  - { label: Contact, url: /contact/ }

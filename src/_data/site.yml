@@ -1,0 +1,57 @@
+# Site-wide settings. Editable in Pages CMS under "Site settings".
+name: EyeTRU
+full_name: Eye Translational Research Unit
+tagline: Going for gaps in glaucoma
+description: >-
+  EyeTRU is a translational eye research group at the University of Copenhagen.
+  We study glaucoma and other eye diseases from cells to large population cohorts,
+  to prevent visual impairment and improve quality of life for patients.
+url: https://eyetru.github.io
+language: en
+
+# Shown on the front page
+hero:
+  eyebrow: University of Copenhagen · Department of Drug Design and Pharmacology
+  title: Translational eye research, from cells to cohorts
+  text: >-
+    Vision loss is rising as populations age. We combine laboratory science, clinical trials,
+    registry epidemiology and large-scale data science to understand glaucoma and other
+    eye diseases, and to find better ways to detect and treat them.
+  primary_button: { label: Explore our research, link: /research/ }
+  secondary_button: { label: Project FOREVER, link: /forever/ }
+
+# Key figures on the front page. Keep to 3-4.
+stats:
+  - value: "90,000+"
+    label: participants in the FOREVER cohort
+  - value: "100"
+    label: Synoptik optician stores collecting data
+  - value: "28"
+    label: peer-reviewed papers since 2020
+  - value: "25+"
+    label: researchers and students
+
+contact:
+  email: forever@sund.ku.dk
+  phone: "+45 5154 4489"
+  address:
+    - Eye Translational Research Unit (EyeTRU)
+    - Department of Drug Design and Pharmacology
+    - University of Copenhagen
+    - Universitetsparken 2
+    - DK-2100 Copenhagen Ø, Denmark
+  map_url: https://www.openstreetmap.org/search?query=Universitetsparken%202%2C%202100%20K%C3%B8benhavn
+
+links:
+  - { label: LinkedIn, url: "https://www.linkedin.com/company/eyetru/", icon: linkedin }
+  - { label: EyeTRU at UCPH, url: "https://drug.ku.dk/research-sections/translational-and-clinical-pharmacology/eyetru/", icon: link }
+  - { label: FOREVER at UCPH, url: "https://forever.ku.dk/", icon: link }
+  - { label: FOREVER dataset on Zenodo, url: "https://zenodo.org/records/12607333", icon: database }
+
+# Author names to highlight in bold in publication lists (as they appear in citations)
+highlight_authors:
+  - Kolko, M.
+
+footer_note: >-
+  EyeTRU is part of the Section for Translational and Clinical Pharmacology,
+  Department of Drug Design and Pharmacology, University of Copenhagen.

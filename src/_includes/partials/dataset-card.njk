@@ -1,0 +1,17 @@
+{# One dataset. Expects `ds`. #}
+{% set d = ds.data %}
+<article class="card dataset-card">
+  <span class="tag tag-accent" style="align-self:flex-start">{{ d.access or "Dataset" }}</span>
+  <h3>{{ d.title }}</h3>
+  {% if d.summary %}<p>{{ d.summary }}</p>{% endif %}
+  <dl class="kv">
+    {% if d.doi %}<dt>DOI</dt><dd><a href="{{ d.doi | doiUrl }}" rel="noopener">{{ d.doi }}</a></dd>{% endif %}
+    {% if d.license %}<dt>Licence</dt><dd>{{ d.license }}</dd>{% endif %}
+    {% if d.contents %}<dt>Contents</dt><dd>{{ d.contents }}</dd>{% endif %}
+    {% if d.fee %}<dt>Access fee</dt><dd>{{ d.fee }}</dd>{% endif %}
+  </dl>
+  <div class="btn-row" style="margin-top:.8rem">
+    {% if d.url %}<a class="btn btn-primary" href="{{ d.url }}" rel="noopener">View metadata</a>{% endif %}
+    {% if d.apply_url %}<a class="btn btn-ghost" href="{{ d.apply_url }}" rel="noopener">Apply for access</a>{% endif %}
+  </div>
+</article>

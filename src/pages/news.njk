@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+title: News
+permalink: /news/
+description: News and updates from the EyeTRU research group.
+---
+<header class="page-head">
+  <div class="container">
+    <span class="eyebrow">Updates</span>
+    <h1>News</h1>
+    <p class="lead">Grants, papers, awards, events and people. Follow along via <a href="/news/feed.xml">RSS</a> or <a href="https://www.linkedin.com/company/eyetru/">LinkedIn</a>.</p>
+  </div>
+</header>
+<div class="container section">
+  <div class="grid grid-3">{% for post in collections.news %}{% include "partials/news-card.njk" %}{% endfor %}</div>
+</div>

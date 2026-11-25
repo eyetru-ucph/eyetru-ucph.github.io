@@ -1,0 +1,347 @@
+# Pages CMS configuration: defines the editing forms staff see at https://app.pagescms.org
+# Docs: https://pagescms.org/docs/configuration/
+# To add a new subproject to the "Projects" dropdowns, add its file name (without .md)
+# to every `projects` field below (search for "forever").
+
+media:
+  input: src/assets/img/uploads
+  output: /assets/img/uploads
+
+content:
+  # ------------------------------------------------------------------ News
+  - name: news
+    label: News
+    type: collection
+    path: src/content/news
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      sort: [date, title]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Headline, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - { name: summary, label: Short summary (shown on cards), type: text }
+      - { name: image, label: Image (optional), type: image }
+      - { name: image_alt, label: Image description (for screen readers), type: string }
+      - name: projects
+        label: Related projects
+        type: select
+        options: { multiple: true, values: [{ value: forever, label: FOREVER }] }
+      - { name: draft, label: Hide (draft), type: boolean, default: false }
+      - { name: body, label: Text, type: rich-text }
+
+  # ------------------------------------------------------------------ Publications
+  - name: publications
+    label: Publications & talks
+    type: collection
+    path: src/content/publications
+    filename: "{fields.year}-{primary}.md"
+    view:
+      fields: [title, year, type, status]
+      primary: title
+      sort: [year, title]
+      default: { sort: year, order: desc }
+      search: [title, authors, venue]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: authors, label: "Authors (e.g. Hansen, P. M., Rovelt, J., & Kolko, M.)", type: text, required: true }
+      - { name: year, label: Year, type: number, required: true }
+      - name: type
+        label: Type
+        type: select
+        required: true
+        options:
+          values:
+            - { value: article, label: Journal article }
+            - { value: review, label: Review }
+            - { value: book-chapter, label: Book chapter }
+            - { value: proceedings, label: Conference paper }
+            - { value: abstract, label: Conference abstract }
+            - { value: presentation, label: Talk }
+            - { value: poster, label: Poster }
+            - { value: seminar, label: Seminar talk }
+            - { value: popular, label: Popular science }
+            - { value: other, label: Other }
+      - name: status
+        label: Status
+        type: select
+        default: published
+        options:
+          values:
+            - { value: published, label: Published / presented }
+            - { value: accepted, label: Accepted }
+            - { value: in-review, label: Under review }
+            - { value: submitted, label: Submitted }
+            - { value: ready, label: Ready for submission }
+            - { value: in-preparation, label: In preparation }
+      - { name: venue, label: "Journal, conference or meeting", type: string }
+      - { name: details, label: "Volume, issue, pages (e.g. 103(1), 33–42)", type: string }
+      - { name: doi, label: "DOI (e.g. 10.1111/aos.15693)", type: string }
+      - { name: url, label: Link (if no DOI), type: string }
+      - { name: pdf, label: PDF or poster file, type: file }
+      - { name: award, label: Award (optional), type: string }
+      - name: projects
+        label: Related projects
+        type: select
+        options: { multiple: true, values: [{ value: forever, label: FOREVER }] }
+      - { name: hidden, label: Hide from website, type: boolean, default: false }
+
+  # ------------------------------------------------------------------ People
+  - name: people
+    label: People
+    type: collection
+    path: src/content/people
+    filename: "{primary}.md"
+    view:
+      fields: [name, role, category]
+      primary: name
+      sort: [order, name]
+    fields:
+      - { name: name, label: Full name, type: string, required: true }
+      - { name: role, label: Title / role, type: string }
+      - name: category
+        label: Group on the People page
+        type: select
+        required: true
+        options:
+          values:
+            - { value: lead, label: Group leader }
+            - { value: senior, label: Senior researchers }
+            - { value: phd, label: PhD fellows }
+            - { value: staff, label: "Data, administration & study staff" }
+            - { value: student, label: Students }
+            - { value: guest, label: Guest and affiliated researchers }
+            - { value: alumni, label: Alumni (former members) }
+      - { name: order, label: "Sort order (lower comes first)", type: number, default: 50 }
+      - { name: photo, label: Photo (square works best), type: image }
+      - { name: email, label: Email, type: string }
+      - { name: orcid, label: "ORCID iD (e.g. 0000-0001-8697-0734)", type: string }
+      - { name: profile_url, label: University profile link, type: string }
+      - { name: linkedin, label: LinkedIn link, type: string }
+      - name: projects
+        label: Projects
+        type: select
+        options: { multiple: true, values: [{ value: forever, label: FOREVER }] }
+      - { name: hidden, label: Hide from website, type: boolean, default: false }
+      - { name: body, label: Short bio (shown for the group leader), type: rich-text }
+
+  # ------------------------------------------------------------------ Grants
+  - name: grants
+    label: Funding
+    type: collection
+    path: src/content/grants
+    filename: "{primary}.md"
+    view:
+      fields: [funder, title, current]
+      primary: funder
+    fields:
+      - { name: funder, label: Funder, type: string, required: true }
+      - { name: title, label: What it funds, type: string }
+      - { name: amount, label: "Amount (e.g. DKK 13.4 million)", type: string }
+      - { name: current, label: Current funding (untick when it ends), type: boolean, default: true }
+      - { name: start_year, label: Start year, type: number }
+      - { name: end_year, label: End year, type: number }
+      - { name: url, label: Link, type: string }
+      - { name: order, label: Sort order, type: number, default: 50 }
+      - name: projects
+        label: Related projects
+        type: select
+        options: { multiple: true, values: [{ value: forever, label: FOREVER }] }
+      - { name: hidden, label: Hide from website, type: boolean, default: false }
+
+  # ------------------------------------------------------------------ Partners
+  - name: partners
+    label: Partners & collaborators
+    type: collection
+    path: src/content/partners
+    filename: "{primary}.md"
+    view:
+      fields: [name, type, country]
+      primary: name
+    fields:
+      - { name: name, label: Organisation, type: string, required: true }
+      - name: type
+        label: Category
+        type: select
+        required: true
+        options:
+          values:
+            - { value: academic, label: Academic partner }
+            - { value: clinical, label: Clinical partner }
+            - { value: industry, label: Industry & public-private partner }
+            - { value: patient, label: Patient & professional organisation }
+      - { name: description, label: "Short description or contact people", type: string }
+      - { name: country, label: Country, type: string }
+      - { name: url, label: Website, type: string }
+      - { name: logo, label: Logo (optional), type: image }
+      - { name: order, label: Sort order, type: number, default: 50 }
+      - name: projects
+        label: Related projects
+        type: select
+        options: { multiple: true, values: [{ value: forever, label: FOREVER }] }
+      - { name: hidden, label: Hide from website, type: boolean, default: false }
+
+  # ------------------------------------------------------------------ Datasets
+  - name: datasets
+    label: Datasets
+    type: collection
+    path: src/content/datasets
+    filename: "{primary}.md"
+    view: { fields: [title], primary: title }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: access, label: "Access (e.g. Open, Restricted · on application)", type: string }
+      - { name: summary, label: Summary, type: text }
+      - { name: doi, label: DOI, type: string }
+      - { name: url, label: Metadata link (e.g. Zenodo), type: string }
+      - { name: apply_url, label: Application form link, type: string }
+      - { name: license, label: Licence, type: string }
+      - { name: contents, label: Contents, type: text }
+      - { name: fee, label: Access fee, type: text }
+      - { name: order, label: Sort order, type: number, default: 50 }
+      - name: projects
+        label: Related projects
+        type: select
+        options: { multiple: true, values: [{ value: forever, label: FOREVER }] }
+      - { name: body, label: How access works, type: rich-text }
+
+  # ------------------------------------------------------------------ Projects (subproject sites)
+  - name: projects
+    label: Projects (sub-sites)
+    type: collection
+    path: src/content/projects
+    filename: "{primary}.md"
+    view: { fields: [title, status], primary: title }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: short_name, label: Short name (used in tags), type: string }
+      - { name: full_name, label: Full name, type: string }
+      - { name: status, label: "Status (e.g. Ongoing cohort)", type: string }
+      - { name: order, label: Sort order, type: number, default: 50 }
+      - { name: summary, label: Summary, type: text }
+      - name: buttons
+        label: Buttons at the top
+        type: object
+        list: { max: 3 }
+        fields:
+          - { name: label, type: string }
+          - { name: link, type: string }
+      - name: facts
+        label: Key figures
+        type: object
+        list: { max: 4 }
+        fields:
+          - { name: value, label: "Number (e.g. 91,899)", type: string }
+          - { name: label, label: Description, type: string }
+      - name: at_a_glance
+        label: At a glance box
+        type: object
+        list: true
+        fields:
+          - { name: label, type: string }
+          - { name: value, type: string }
+      - name: links
+        label: Links
+        type: object
+        list: true
+        fields:
+          - { name: label, type: string }
+          - { name: url, type: string }
+      - name: steering_group
+        label: Steering group
+        type: object
+        list: true
+        fields:
+          - { name: name, type: string }
+          - { name: role, type: string }
+      - { name: contact_email, label: Contact email, type: string }
+      - { name: contact_phone, label: Contact phone, type: string }
+      - { name: contact_text, label: Contact text, type: text }
+      - { name: hidden, label: Hide from website, type: boolean, default: false }
+      - { name: body, label: Main text, type: rich-text }
+
+  # ------------------------------------------------------------------ Single pages
+  - name: research
+    label: Research page
+    type: file
+    path: src/pages/research.md
+    fields:
+      - { name: title, type: string }
+      - { name: eyebrow, label: Small heading, type: string }
+      - { name: intro, label: Introduction, type: text }
+      - name: themes
+        label: Research themes
+        type: object
+        list: true
+        fields:
+          - { name: title, type: string }
+          - name: icon
+            type: select
+            options: { values: [flask, pulse, chart, cells, drop, grid, eye] }
+          - { name: text, type: text }
+      - { name: body, label: Main text, type: rich-text }
+
+  - name: site
+    label: Site settings & front page
+    type: file
+    path: src/_data/site.yml
+    fields:
+      - { name: name, label: Group name, type: string }
+      - { name: full_name, label: Full name, type: string }
+      - { name: tagline, type: string }
+      - { name: description, label: Description (for search engines), type: text }
+      - { name: url, label: Website address, type: string }
+      - name: hero
+        label: Front page banner
+        type: object
+        fields:
+          - { name: eyebrow, label: Small heading, type: string }
+          - { name: title, label: Headline, type: string }
+          - { name: text, type: text }
+          - name: primary_button
+            type: object
+            fields: [{ name: label, type: string }, { name: link, type: string }]
+          - name: secondary_button
+            type: object
+            fields: [{ name: label, type: string }, { name: link, type: string }]
+      - name: stats
+        label: Key figures on the front page
+        type: object
+        list: { max: 4 }
+        fields:
+          - { name: value, type: string }
+          - { name: label, type: string }
+      - name: contact
+        label: Contact details
+        type: object
+        fields:
+          - { name: email, type: string }
+          - { name: phone, type: string }
+          - { name: address, label: Address lines, type: string, list: true }
+          - { name: map_url, label: Map link, type: string }
+      - name: links
+        label: External links (footer and contact page)
+        type: object
+        list: true
+        fields:
+          - { name: label, type: string }
+          - { name: url, type: string }
+          - { name: icon, type: string, hidden: true }
+      - { name: highlight_authors, label: "Author names to show in bold in publication lists", type: string, list: true }
+      - { name: footer_note, label: Footer text, type: text }
+      - { name: language, type: string, hidden: true }
+
+  - name: navigation
+    label: Menu
+    type: file
+    path: src/_data/navigation.yml
+    fields:
+      - name: main
+        label: Main menu
+        type: object
+        list: true
+        fields:
+          - { name: label, type: string }
+          - { name: url, type: string }

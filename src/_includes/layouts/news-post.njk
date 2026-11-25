@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+---
+<header class="page-head">
+  <div class="container">
+    <span class="eyebrow"><a href="/news/">News</a> · <time datetime="{{ page.date | isoDate }}">{{ page.date | date }}</time></span>
+    <h1>{{ title }}</h1>
+    {% if summary %}<p class="lead">{{ summary }}</p>{% endif %}
+  </div>
+</header>
+<div class="container section">
+  <article class="prose">
+    {% if image %}<p><img src="{{ image }}" alt="{{ image_alt or '' }}"></p>{% endif %}
+    {{ content | safe }}
+    {% if projects and projects.length %}
+    <p class="small muted">Related: {% for p in projects %}{% set proj = collections.projects | findBySlug(p) %}{% if proj %}<a href="{{ proj.url }}">{{ proj.data.title }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    {% endif %}
+    <p><a class="arrow-link" href="/news/">All news</a></p>
+  </article>
+</div>

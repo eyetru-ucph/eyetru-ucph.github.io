@@ -1,0 +1,7 @@
+{# A publication list grouped by year. Expects `pubs`. #}
+{% for g in pubs | groupBy("year") %}
+<h3 class="pub-year" data-pub-year>{{ g.key }}</h3>
+<ul class="pub-list">
+  {% for pub in g.items %}{% include "partials/pub-item.njk" %}{% endfor %}
+</ul>
+{% endfor %}

@@ -1,0 +1,16 @@
+{# One person. Expects `person` (a collection item) and optional `lead` (true for the large card). #}
+{% set d = person.data %}
+<article class="person{% if lead %} person-lead{% endif %}">
+  {% if d.photo %}<img class="avatar" src="{{ d.photo }}" alt="" loading="lazy" width="112" height="112">{% else %}<span class="avatar" aria-hidden="true">{{ d.name | initials }}</span>{% endif %}
+  <div>
+    <div class="person-name">{{ d.name }}</div>
+    <div class="person-role">{{ d.role }}</div>
+    {% if lead and person.content | trim %}<div class="person-bio">{{ person.content | safe }}</div>{% endif %}
+    <div class="person-links">
+      {% if d.email %}<a href="mailto:{{ d.email }}">Email</a>{% endif %}
+      {% if d.profile_url %}<a href="{{ d.profile_url }}" rel="noopener">Profile</a>{% endif %}
+      {% if d.orcid %}<a href="https://orcid.org/{{ d.orcid }}" rel="noopener">ORCID</a>{% endif %}
+      {% if d.linkedin %}<a href="{{ d.linkedin }}" rel="noopener">LinkedIn</a>{% endif %}
+    </div>
+  </div>
+</article>
