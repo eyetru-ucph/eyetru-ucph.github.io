@@ -1,7 +1,7 @@
 ---
 name: Marcel Reimann
 role: Postdoc (CAISA)
-category: senior
+category: guest
 order: 20
 orcid: 0009-0002-9240-7213
 profile_url: https://forskning.ku.dk/soeg/result/?pure=da%2Fpersons%2Fmarcel-reimann(7122495c-5f86-4c8c-9a3e-d8c9837893b9).html
