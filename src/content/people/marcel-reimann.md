@@ -10,3 +10,4 @@ projects:
   - forever
 hidden: false
 ---
+Marcel is attached to EyeTRU as a supervisor for AI and data science-related projects. Within Project FOREVER he focuses on image analysis, especially of OCT scans.
