@@ -102,7 +102,7 @@ layout: layouts/base.njk
     </div>{% endif %}
     {% if grantsP.length %}<h3 style="margin-top:2.5rem">Funded by</h3>
     <div class="logo-wall">
-      {% for g in grantsP %}<a class="logo-tile" href="{{ g.data.url or '/partners/#funding' }}" rel="noopener"><span class="n">{{ g.data.funder }}</span><span class="d">{{ g.data.title }}</span></a>{% endfor %}
+      {% for g in grantsP %}<a class="logo-tile" href="{{ g.data.url or '/partners/#funding' }}" rel="noopener">{% if g.data.logo %}<img src="{{ g.data.logo }}" {{ g.data.logo | logoSize | safe }} alt="" loading="lazy">{% endif %}<span class="n">{{ g.data.funder }}</span><span class="d">{{ g.data.title }}</span></a>{% endfor %}
     </div>{% endif %}
   </div>
 </section>

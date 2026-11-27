@@ -4,7 +4,7 @@ type: academic
 description: "Blanca I. Aldana, Kristine Freude, Marianne Benn"
 country: "Denmark"
 url: "https://www.ku.dk/"
-logo: ""
+logo: "/assets/img/uploads/logos/university-of-copenhagen.svg"
 order: 15
 projects: []
 ---

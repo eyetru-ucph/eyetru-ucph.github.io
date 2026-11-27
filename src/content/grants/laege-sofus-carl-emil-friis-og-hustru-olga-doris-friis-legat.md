@@ -6,6 +6,7 @@ current: false
 start_year: 
 end_year: 
 url: ""
+logo: ""
 order: 17
 projects: []
 ---

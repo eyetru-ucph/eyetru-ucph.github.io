@@ -35,11 +35,12 @@ description: EyeTRU collaborators, partner organisations and funders.
         <div class="muted small">{{ g.data.title }}{% if g.data.amount %} · {{ g.data.amount }}{% endif %}</div>
         {% if g.data.projects %}<div class="pub-tags">{% for p in g.data.projects %}{% set proj = collections.projects | findBySlug(p) %}{% if proj %}<a class="tag tag-accent" href="{{ proj.url }}">{{ proj.data.short_name or proj.data.title }}</a>{% endif %}{% endfor %}</div>{% endif %}
       </div>
+      {% if g.data.logo %}<img class="grant-logo" src="{{ g.data.logo }}" {{ g.data.logo | logoSize | safe }} alt="" loading="lazy">{% endif %}
     </div>
     {% endfor %}
     {% if previous.length %}
     <h3 style="margin-top:2rem">Previous funding</h3>
-    <p class="small muted">{% for g in previous %}{{ g.data.funder }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    <div class="logo-wall">{% for g in previous %}<a class="logo-tile" {% if g.data.url %}href="{{ g.data.url }}" rel="noopener"{% endif %}>{% if g.data.logo %}<img src="{{ g.data.logo }}" {{ g.data.logo | logoSize | safe }} alt="" loading="lazy">{% endif %}<span class="n">{{ g.data.funder }}</span>{% if g.data.title %}<span class="d">{{ g.data.title }}</span>{% endif %}</a>{% endfor %}</div>
     {% endif %}
   </section>
 </div>

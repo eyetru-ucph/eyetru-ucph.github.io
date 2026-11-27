@@ -5,7 +5,8 @@ amount: ""
 current: true
 start_year: 
 end_year: 
-url: ""
+url: "https://blind.dk/vores-arbejde/oejenfonden/"
+logo: "/assets/img/uploads/logos/dansk-blindesamfund.svg"
 order: 9
 projects: []
 ---

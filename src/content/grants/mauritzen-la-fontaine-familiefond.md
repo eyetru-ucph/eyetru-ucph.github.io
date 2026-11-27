@@ -6,6 +6,7 @@ current: true
 start_year: 
 end_year: 
 url: ""
+logo: ""
 order: 6
 projects: [forever]
 ---

@@ -5,7 +5,8 @@ amount: ""
 current: true
 start_year: 
 end_year: 
-url: ""
+url: "https://synoptik-fonden.dk/"
+logo: "/assets/img/uploads/logos/synoptik-fonden.png"
 order: 1
 projects: [forever]
 ---

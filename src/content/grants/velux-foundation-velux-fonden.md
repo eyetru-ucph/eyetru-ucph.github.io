@@ -5,7 +5,8 @@ amount: ""
 current: true
 start_year: 
 end_year: 
-url: ""
+url: "https://veluxfonden.dk/"
+logo: "/assets/img/uploads/logos/velux-fonden.svg"
 order: 3
 projects: [forever]
 ---

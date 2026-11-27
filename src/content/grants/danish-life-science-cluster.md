@@ -5,7 +5,8 @@ amount: ""
 current: true
 start_year: 
 end_year: 
-url: ""
+url: "https://www.danishlifesciencecluster.dk/"
+logo: "/assets/img/uploads/logos/danish-life-science-cluster.svg"
 order: 5
 projects: [forever]
 ---

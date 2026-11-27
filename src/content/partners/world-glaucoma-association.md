@@ -4,7 +4,7 @@ type: patient
 description: "Professional society"
 country: "International"
 url: "https://www.worldglaucoma.org/"
-logo: ""
+logo: "/assets/img/uploads/logos/world-glaucoma-association.svg"
 order: 25
 projects: []
 ---

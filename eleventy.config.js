@@ -1,6 +1,7 @@
 // Eleventy configuration for the EyeTRU website.
 // Content lives in src/content/ (one file per item) and src/_data/ (site settings).
 // Editors normally change content through Pages CMS (see .pages.yml), never this file.
+import { readFileSync } from "node:fs";
 import yaml from "js-yaml";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 
@@ -85,6 +86,24 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("currentYear", () => new Date().getFullYear());
   eleventyConfig.addFilter("searchText", (data) =>
     [data.title, data.authors, data.venue, data.year, data.doi].filter(Boolean).join(" ").toLowerCase());
+  // Logo width giving every partner/funder logo about the same area, so wordmarks and emblems look
+  // equally large. 56 = logo box height in style.css. "" if the size can't be read (CSS falls back).
+  eleventyConfig.addFilter("logoSize", (src) => {
+    let w, h;
+    try {
+      const file = readFileSync(`src${src}`);
+      if (/\.svg$/i.test(src)) {
+        const tag = file.toString("utf8").match(/<svg\b[^>]*>/)?.[0] ?? "";
+        const viewBox = tag.match(/viewBox="([^"]+)"/)?.[1].trim().split(/[\s,]+/).map(Number);
+        [w, h] = viewBox ? viewBox.slice(2) : ["width", "height"].map((a) => parseFloat(tag.match(new RegExp(`\\s${a}="([\\d.]+)`))?.[1]));
+      } else if (file.toString("latin1", 1, 4) === "PNG") {
+        [w, h] = [file.readUInt32BE(16), file.readUInt32BE(20)];
+      }
+    } catch {}
+    if (!(w > 0 && h > 0)) return "";
+    const height = Math.min(56, Math.sqrt((44 * 150 * h) / w));
+    return `width="${Math.round((height * w) / h)}"`;
+  });
   eleventyConfig.addFilter("highlightAuthors", (authors, names) => {
     // Bold the group's own members in author lists (names come from site settings).
     let out = String(authors || "").replace(/&/g, "&amp;").replace(/</g, "&lt;");

@@ -1,7 +1,7 @@
 {# One partner organisation or person. Expects `p`. #}
 {% set d = p.data %}
 <a class="logo-tile" {% if d.url %}href="{{ d.url }}" rel="noopener"{% endif %}>
-  {% if d.logo %}<img src="{{ d.logo }}" alt="" loading="lazy">{% endif %}
+  {% if d.logo %}<img src="{{ d.logo }}" {{ d.logo | logoSize | safe }} alt="" loading="lazy">{% endif %}
   <span class="n">{{ d.name }}</span>
   {% if d.description or d.country %}<span class="d">{{ d.description }}{% if d.description and d.country %} · {% endif %}{{ d.country }}</span>{% endif %}
 </a>

@@ -5,7 +5,8 @@ amount: ""
 current: true
 start_year: 
 end_year: 
-url: ""
+url: "https://www.ojenforeningen.dk/"
+logo: "/assets/img/uploads/logos/oejenforeningen.svg"
 order: 7
 projects: [forever]
 ---

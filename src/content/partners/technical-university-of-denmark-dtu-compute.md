@@ -4,7 +4,7 @@ type: academic
 description: "Visual computing and AI · Anders Bjorholm Dahl"
 country: "Denmark"
 url: "https://www.compute.dtu.dk/"
-logo: ""
+logo: "/assets/img/uploads/logos/dtu.svg"
 order: 4
 projects: [forever]
 ---
