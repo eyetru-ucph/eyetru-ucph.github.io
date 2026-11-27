@@ -4,7 +4,7 @@ type: academic
 description: "Verena Prokosch"
 country: "Germany"
 url: "https://www.uni-koeln.de/"
-logo: ""
+logo: "/assets/img/uploads/logos/university-of-cologne.svg"
 order: 14
 projects: []
 ---

@@ -5,7 +5,8 @@ amount: ""
 current: false
 start_year: 
 end_year: 
-url: ""
+url: "https://hoerslev-fonden.dk/"
+logo: "/assets/img/uploads/logos/hoerslev-fonden.png"
 order: 15
 projects: []
 ---

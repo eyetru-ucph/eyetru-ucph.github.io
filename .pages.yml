@@ -144,6 +144,7 @@ content:
       - { name: start_year, label: Start year, type: number }
       - { name: end_year, label: End year, type: number }
       - { name: url, label: Link, type: string }
+      - { name: logo, label: Logo (optional), type: image }
       - { name: order, label: Sort order, type: number, default: 50 }
       - name: projects
         label: Related projects

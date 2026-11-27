@@ -4,7 +4,7 @@ type: clinical
 description: "Clinical trials and glaucoma care"
 country: "Denmark"
 url: "https://www.rigshospitalet.dk/"
-logo: ""
+logo: "/assets/img/uploads/logos/rigshospitalet.svg"
 order: 16
 projects: [forever]
 ---

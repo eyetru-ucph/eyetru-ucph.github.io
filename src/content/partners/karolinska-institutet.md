@@ -4,7 +4,7 @@ type: academic
 description: "Pete Williams"
 country: "Sweden"
 url: "https://ki.se/"
-logo: ""
+logo: "/assets/img/uploads/logos/karolinska-institutet.svg"
 order: 10
 projects: []
 ---

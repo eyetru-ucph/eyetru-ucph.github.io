@@ -4,7 +4,7 @@ type: patient
 description: "Patient organisation · FOREVER steering group"
 country: "Denmark"
 url: "https://www.ojenforeningen.dk/"
-logo: ""
+logo: "/assets/img/uploads/logos/oejenforeningen.svg"
 order: 21
 projects: [forever]
 ---
