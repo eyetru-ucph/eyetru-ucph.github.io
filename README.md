@@ -8,6 +8,73 @@ sub-sites for its projects (currently Project FOREVER at `/forever/`).
   (Pages CMS → this repository → Settings → Collaborators). The forms are defined in `.pages.yml`.
 - **Site generator:** [Eleventy 3](https://www.11ty.dev/), no other runtime dependencies.
 
+Live site: https://eyetru-ucph.github.io/
+
+## Updating content in the editor (no coding)
+
+News, publications, people, funders, partners, datasets, project pages, the front page and the menu
+can all be edited in a web form.
+
+**First, the person needs access.** Someone who already has access must add them once:
+
+- **Staff without a GitHub account:** sign in at [app.pagescms.org](https://app.pagescms.org), open
+  `eyetru-ucph / eyetru-ucph.github.io`, go to **Settings → Collaborators** and invite their email address.
+  They receive an email with a sign-in link and never need GitHub.
+- **People with a GitHub account** (e.g. the data manager): add them on GitHub under
+  **eyetru-ucph → People → Invite member** (or the repository's **Settings → Collaborators**).
+  They then sign in at [app.pagescms.org](https://app.pagescms.org) with GitHub.
+
+**Then, to edit:**
+
+1. Go to [app.pagescms.org](https://app.pagescms.org) and sign in (email link or GitHub).
+2. Choose `eyetru-ucph.github.io`.
+3. Pick a section in the left menu (e.g. **News**), then click an item to edit it or **Add an entry** to create one.
+4. Fill in the form and click **Save**.
+5. The live site updates by itself about a minute later. To follow progress or see an error, check
+   the [Actions tab](https://github.com/eyetru-ucph/eyetru-ucph.github.io/actions).
+
+Tips:
+- To link a news item, person, publication etc. to FOREVER, choose it under **Related projects**. It then
+  also appears on the FOREVER page.
+- To take something off the site without deleting it, tick **Hide from website** (or **Hide (draft)** for news).
+- Images and PDFs uploaded in the editor are stored in `src/assets/img/uploads/`.
+- Every save is a commit on `main`, so the full history is in Git and any change can be undone.
+
+## Changing the layout, design or code (developers)
+
+Template, style and code changes are made locally on a branch and merged through a pull request,
+so the live site is never broken by an unfinished change.
+
+**One-time setup:** install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/) 20 or newer.
+On Windows, WSL works well. One tested setup is Node installed with conda:
+`conda install -c conda-forge nodejs`.
+
+```bash
+git clone https://github.com/eyetru-ucph/eyetru-ucph.github.io.git
+cd eyetru-ucph.github.io
+npm install
+```
+
+**Each change:**
+
+```bash
+git checkout main
+git pull                       # staff edit main through the editor, so always pull first
+git checkout -b my-change      # a short name for what you're doing, e.g. new-footer
+npm start                      # preview at http://localhost:8080, reloads when you save a file
+# ...edit files in src/_includes/ (templates) or src/assets/css/style.css (design)...
+npm run build                  # optional: check the full build has no errors
+git add -A
+git commit -m "Describe the change"
+git push -u origin my-change
+```
+
+Then open a pull request on GitHub (a **Compare & pull request** button appears on the repository page),
+check the changes, and click **Merge**. The live site rebuilds from `main` about a minute after the merge.
+
+If `git pull` or the merge reports a conflict, someone edited the same file in the editor meanwhile:
+keep both changes, commit, and push again.
+
 ## Where things live
 
 | What | Where | One file per |
@@ -36,14 +103,6 @@ shows the people, publications, datasets, partners, funders and news tagged with
 2. In `.pages.yml`, add `{ value: <short-name>, label: <Name> }` to every `projects` field
    (search for `forever`) so editors can tag content with it.
 3. Optionally add it to the menu in `src/_data/navigation.yml`.
-
-## Running it locally
-
-```bash
-npm install
-npm start        # http://localhost:8080, reloads on save
-npm run build    # writes the site to _site/
-```
 
 ## Importing publications from the Word list
 
